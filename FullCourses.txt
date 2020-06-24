@@ -1,0 +1,9 @@
+
+Title: Special Topic: Social Networks
+ID: CSCI-GA.3033
+Instructor: Bhubaneswar Mishra
+Section: 2
+Location: CIWW 201
+Amount of students in class:  2
+Class maximum capacity: 2
+Registered students: gab dwek 123, marc dwek 456
