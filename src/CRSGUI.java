@@ -6,6 +6,7 @@ import java.awt.BorderLayout;
 import javax.swing.JSpinner;
 import java.awt.Label;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
@@ -463,90 +464,103 @@ public class CRSGUI {
 											});
 											edit.getBtnEdit().addActionListener(new ActionListener() {
 												public void actionPerformed(ActionEvent e) {
-													int index = edit.getJlist().getSelectedIndex();
-													AdminEditCourse2 edit2  = new AdminEditCourse2(index);
-													edit2.dispose();
-													edit2.setVisible(true);
-													edit2.getBtnReturnToPrevious().addActionListener(new ActionListener() {
-														public void actionPerformed(ActionEvent e) {
-															edit2.dispose();
-															edit.setVisible(true);
-														}
-													});
-													 edit2.getBtnEditMax().addActionListener(new ActionListener() {
-														 public void actionPerformed(ActionEvent e) {
-															 edit2.contentPane.remove(edit2.getLblMaxError());
-															 edit2.contentPane.remove(edit2.getLblTheChangesHave());
-															 edit2.setVisible(false);
-															 edit2.setVisible(true);
-														    try {
-																 edit2.setMaxInt(Integer.parseInt(edit2.getMax().getText()));
+													try {
+														int index = edit.getJlist().getSelectedIndex();
+														AdminEditCourse2 edit2  = new AdminEditCourse2(index);
+														edit2.dispose();
+														edit2.setVisible(true);
+														edit2.getBtnReturnToPrevious().addActionListener(new ActionListener() {
+															public void actionPerformed(ActionEvent e) {
+																edit2.dispose();
+																edit.getList().removeAllElements();
+																for(int i= 0; i<User.CourseMenu.size(); i++) {
+																	edit.getList().add(i, User.CourseMenu.get(i).getCourseName() + " (Section: " + User.CourseMenu.get(i).getSection() + ")");
+																}
+																edit.getJlist().setModel(edit.getList());
+																edit.scrollPane.setViewportView(edit.getJlist());
+																edit.getJlist().setLayoutOrientation(JList.VERTICAL);
+																edit.contentPane.add(edit.scrollPane);
+																edit.setVisible(true);
 															}
-															catch (Exception k){
-																edit2.contentPane.add(edit2.getLblMaxError());
-																edit2.setVisible(false);
-															    edit2.setVisible(true);
-															    return;
-															}
-															AdminClass.CourseMenu.get(index).setMax(edit2.getMaxInt());
-															edit2.contentPane.add(edit2.getLblTheChangesHave());
-															serialize();
-														 }
-													 });
-													 edit2.getBtnEditIns().addActionListener(new ActionListener() {
-														 public void actionPerformed(ActionEvent e) {
-															 edit2.setInstructorString(edit2.getInstructor().getText());
-															 edit2.contentPane.remove(edit2.getLblTheChangesHave());
-															 edit2.setVisible(false);
-															 edit2.setVisible(true);
-															 AdminClass.CourseMenu.get(index).setInstructor(edit2.getInstructorString());
-															 edit2.contentPane.add(edit2.getLblTheChangesHave());
-															 serialize();
-														 }
-													 });
-													 edit2.getBtnEditSec().addActionListener(new ActionListener() {
-														 public void actionPerformed(ActionEvent e) {
-															 edit2.contentPane.remove(edit2.getLblSecError());
-															 edit2.contentPane.remove(edit2.getLblThatSectionAlready());
-															 edit2.contentPane.remove(edit2.getLblTheChangesHave());
-															 edit2.setVisible(false);
-															 edit2.setVisible(true);
-															 int sameSection = 0;
-															 System.out.println("The value of same section is: " + sameSection);
-														    try {
-														    	 edit2.setSectionInt(Integer.parseInt(edit2.getSection().getText()));
-															}
-															catch (Exception k){
-																edit2.contentPane.add(edit2.getLblSecError());
-																edit2.setVisible(false);
-															    edit2.setVisible(true);
-															    return;
-															}
-														    for(int i = 0; i< User.CourseMenu.size(); i++) {
-														    	if(	User.CourseMenu.get(i).getCourseName().equals(User.CourseMenu.get(index).getCourseName()) && 
-														    		User.CourseMenu.get(i).getSection()== edit2.getSectionInt()) {
-															    		edit2.contentPane.add(edit2.getLblThatSectionAlready());
-																    	edit2.setVisible(false);
-																    	edit2.setVisible(true);
-																    	return;
-														    	}		
-														    }
-														    AdminClass.CourseMenu.get(index).setSection(edit2.getSectionInt());
-															edit2.contentPane.add(edit2.getLblTheChangesHave());
-															serialize();
-														 }
-													 });
-													 edit2.getBtnEditLoc().addActionListener(new ActionListener() {
-														 public void actionPerformed(ActionEvent e) {
-															 edit2.setLocationString(edit2.getLoc().getText());
-															 edit2.contentPane.remove(edit2.getLblTheChangesHave());
-															 edit2.setVisible(false);
-															 edit2.setVisible(true);
-															 AdminClass.CourseMenu.get(index).setLocation(edit2.getLocationString());
-															 edit2.contentPane.add(edit2.getLblTheChangesHave());
-															 serialize();
-														 }
-													 });
+														});
+														 edit2.getBtnEditMax().addActionListener(new ActionListener() {
+															 public void actionPerformed(ActionEvent e) {
+																 edit2.contentPane.remove(edit2.getLblMaxError());
+																 edit2.contentPane.remove(edit2.getLblTheChangesHave());
+																 edit2.setVisible(false);
+																 edit2.setVisible(true);
+															    try {
+																	 edit2.setMaxInt(Integer.parseInt(edit2.getMax().getText()));
+																}
+																catch (Exception k){
+																	edit2.contentPane.add(edit2.getLblMaxError());
+																	edit2.setVisible(false);
+																    edit2.setVisible(true);
+																    return;
+																}
+																AdminClass.CourseMenu.get(index).setMax(edit2.getMaxInt());
+																edit2.contentPane.add(edit2.getLblTheChangesHave());
+																serialize();
+															 }
+														 });
+														 edit2.getBtnEditIns().addActionListener(new ActionListener() {
+															 public void actionPerformed(ActionEvent e) {
+																 edit2.setInstructorString(edit2.getInstructor().getText());
+																 edit2.contentPane.remove(edit2.getLblTheChangesHave());
+																 edit2.setVisible(false);
+																 edit2.setVisible(true);
+																 AdminClass.CourseMenu.get(index).setInstructor(edit2.getInstructorString());
+																 edit2.contentPane.add(edit2.getLblTheChangesHave());
+																 serialize();
+															 }
+														 });
+														 edit2.getBtnEditSec().addActionListener(new ActionListener() {
+															 public void actionPerformed(ActionEvent e) {
+																 edit2.contentPane.remove(edit2.getLblSecError());
+																 edit2.contentPane.remove(edit2.getLblThatSectionAlready());
+																 edit2.contentPane.remove(edit2.getLblTheChangesHave());
+																 edit2.setVisible(false);
+																 edit2.setVisible(true);
+																 int sameSection = 0;
+																 System.out.println("The value of same section is: " + sameSection);
+															    try {
+															    	 edit2.setSectionInt(Integer.parseInt(edit2.getSection().getText()));
+																}
+																catch (Exception k){
+																	edit2.contentPane.add(edit2.getLblSecError());
+																	edit2.setVisible(false);
+																    edit2.setVisible(true);
+																    return;
+																}
+															    for(int i = 0; i< User.CourseMenu.size(); i++) {
+															    	if(	User.CourseMenu.get(i).getCourseName().equals(User.CourseMenu.get(index).getCourseName()) && 
+															    		User.CourseMenu.get(i).getSection()== edit2.getSectionInt()) {
+																    		edit2.contentPane.add(edit2.getLblThatSectionAlready());
+																	    	edit2.setVisible(false);
+																	    	edit2.setVisible(true);
+																	    	return;
+															    	}		
+															    }
+															    AdminClass.CourseMenu.get(index).setSection(edit2.getSectionInt());
+																edit2.contentPane.add(edit2.getLblTheChangesHave());
+																serialize();
+															 }
+														 });
+														 edit2.getBtnEditLoc().addActionListener(new ActionListener() {
+															 public void actionPerformed(ActionEvent e) {
+																 edit2.setLocationString(edit2.getLoc().getText());
+																 edit2.contentPane.remove(edit2.getLblTheChangesHave());
+																 edit2.setVisible(false);
+																 edit2.setVisible(true);
+																 AdminClass.CourseMenu.get(index).setLocation(edit2.getLocationString());
+																 edit2.contentPane.add(edit2.getLblTheChangesHave());
+																 serialize();
+															 }
+														 });
+													}
+													catch (IndexOutOfBoundsException k) {
+														edit.setVisible(true);
+													}
 												}
 											});
 										}

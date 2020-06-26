@@ -16,7 +16,7 @@ import javax.swing.JButton;
 
 public class AdminEditCourse extends JFrame {
 
-	private JPanel contentPane;
+	public JPanel contentPane;
 	private JButton btnReturn;
 	private JButton btnEdit;
 	static JScrollPane scrollPane;
@@ -108,6 +108,13 @@ public class AdminEditCourse extends JFrame {
 	 */
 	public  JList getJlist() {
 		return jlist;
+	}
+
+	/**
+	 * @return the list
+	 */
+	public static DefaultListModel getList() {
+		return list;
 	}
 	
 	

@@ -132,7 +132,7 @@ public class AdminEditCourse2 extends JFrame {
 		lblTheChangesHave = new JLabel("The changes have been saved.");
 		lblTheChangesHave.setForeground(Color.WHITE);
 		lblTheChangesHave.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
-		lblTheChangesHave.setBounds(237, 584, 216, 16);
+		lblTheChangesHave.setBounds(237, 584, 216, 40);
 	
 		
 		lblMaxError = new JLabel("Please enter a number.");
